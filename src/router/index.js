@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Dashboard from '../views/Dashboard.vue'
+import Dashboard from '../views/DashboardView.vue'
 
 Vue.use(VueRouter)
 
@@ -15,49 +15,49 @@ const routes = [
     path: '/login',
     name: 'Login',
     meta: { layout: 'auth' },
-    component: () => import('../views/Login')
+    component: () => import('../views/LoginView')
   },
   {
     path: '/registration',
     name: 'Registration',
     meta: { layout: 'auth' },
-    component: () => import('../views/Registration')
+    component: () => import('../views/RegistrationView')
   },
   {
     path: '/categories',
     name: 'Categories',
     meta: { layout: 'main' },
-    component: () => import('../views/Categories')
+    component: () => import('../views/CategoriesView')
   },
   {
     path: '/history',
     name: 'History',
     meta: { layout: 'main' },
-    component: () => import('../views/History')
+    component: () => import('../views/HistoryView')
   },
   {
     path: '/planning',
     name: 'Planning',
     meta: { layout: 'main' },
-    component: () => import('../views/Planning')
+    component: () => import('../views/PlanningView')
   },
   {
     path: '/profile',
     name: 'Profile',
     meta: { layout: 'main' },
-    component: () => import('../views/Profile')
+    component: () => import('../views/ProfileView')
   },
   {
     path: '/record',
     name: 'Record',
     meta: { layout: 'main' },
-    component: () => import('../views/Record')
+    component: () => import('../views/RecordView')
   },
   {
     path: '/record-detail',
     name: 'Record-detail',
     meta: { layout: 'main' },
-    component: () => import('../views/Record-detail')
+    component: () => import('../views/RecordDetailView')
   }
 ]
 
