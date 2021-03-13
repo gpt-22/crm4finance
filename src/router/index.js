@@ -12,16 +12,16 @@ const routes = [
     component: Dashboard
   },
   {
-    path: '/login',
-    name: 'Login',
+    path: '/sign-in',
+    name: 'SignIn',
     meta: { layout: 'auth' },
-    component: () => import('../views/LoginView')
+    component: () => import('../views/SignInView')
   },
   {
-    path: '/registration',
-    name: 'Registration',
+    path: '/sign-up',
+    name: 'SignUp',
     meta: { layout: 'auth' },
-    component: () => import('../views/RegistrationView')
+    component: () => import('../views/SignUpView')
   },
   {
     path: '/categories',
