@@ -4,8 +4,11 @@ import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import 'materialize-css/dist/js/materialize.min'
+import toastMessagePlugin from './utils/toastMessage.plugin'
 
 Vue.config.productionTip = false
+
+Vue.use(toastMessagePlugin)
 
 new Vue({
   router,

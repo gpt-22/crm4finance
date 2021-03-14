@@ -10,10 +10,10 @@
         <input
           v-model="email"
           @input="emailValidationStarted=true"
+          v-focus
           id="email"
           type="text"
           class="validate"
-          autofocus
         >
         <label for="email">Email</label>
         <template v-if="emailValidationStarted">
@@ -31,19 +31,19 @@
 
       <div class="input-field">
         <input
-          v-model="password1"
-          @input="password1ValidationStarted=true"
+          v-model="password"
+          @input="passwordValidationStarted=true"
           id="password"
           type="password"
           class="validate"
         >
         <label for="password">Пароль</label>
-        <template v-if="password1ValidationStarted">
-          <small v-if="!password1NotEmpty" class="helper-text invalid">
+        <template v-if="passwordValidationStarted">
+          <small v-if="!passwordNotEmpty" class="helper-text invalid">
             Введите пароль
           </small>
-          <small v-else-if="!hasPassword1MinLength" class="helper-text invalid">
-            Миниум {{ passwordMinLength }} символов (Осталось {{ password1CharsLeft }})
+          <small v-else-if="!hasPasswordMinLength" class="helper-text invalid">
+            Миниум {{ passwordMinLength }} символов (Осталось {{ passwordCharsLeft }})
           </small>
         </template>
       </div>
@@ -114,48 +114,21 @@
 </template>
 
 <script>
+import { authMixin } from '@/mixins/authMixin'
+
 export default {
   name: 'SignUp',
+  mixins: [authMixin],
   data() {
     return {
-      email: '',
-      emailValidationStarted: false,
-      emailMinLength: 11,
-      password1: '',
-      password1ValidationStarted: false,
       password2: '',
       password2ValidationStarted: false,
-      passwordMinLength: 6,
       name: '',
       nameValidationStarted: false,
       agreeWithRules: false
     }
   },
   computed: {
-    emailNotEmpty() {
-      return this.email.length
-    },
-    hasEmailMinLength() {
-      return this.email.length >= this.emailMinLength
-    },
-    emailCharsLeft() {
-      return this.emailMinLength - this.email.length
-    },
-    emailIsEmail() {
-      const re = /\S+@\S+\.\S{2,3}$/
-      return re.test(this.email)
-    },
-
-    password1NotEmpty() {
-      return this.password1.length
-    },
-    hasPassword1MinLength() {
-      return this.password1.length >= this.passwordMinLength
-    },
-    password1CharsLeft() {
-      return this.passwordMinLength - this.password1.length
-    },
-
     password2NotEmpty() {
       return this.password2.length
     },
@@ -167,7 +140,7 @@ export default {
     },
 
     passwordsMatch() {
-      return this.password1 === this.password2
+      return this.password === this.password2
     },
 
     nameNotEmpty() {
@@ -175,32 +148,24 @@ export default {
     },
 
     formIsValid() {
-      const passwordsOk = this.password1IsValid && this.password2IsValid && this.passwordsMatch
+      const passwordsOk = this.passwordIsValid && this.password2IsValid && this.passwordsMatch
       return this.emailIsValid && passwordsOk && this.nameNotEmpty && this.agreeWithRules
     }
   },
   methods: {
-    emailIsValid() {
-      return this.emailNotEmpty && this.emailIsEmail && this.hasEmailMinLength
-    },
-    password1IsValid() {
-      return this.password1NotEmpty && this.hasPassword1MinLength
-    },
     password2IsValid() {
       return this.password2NotEmpty && this.hasPassword2MinLength
     },
     onSubmit() {
       const formData = {
         email: this.email,
-        password1: this.password1,
+        password: this.password,
         password2: this.password2,
         name: this.name
       }
       console.log('form is valid:', formData)
+      this.$router.push('/')
     }
   }
 }
-
-/* TODO
-*   rewrite sign-in copypaste => plugin/mixin */
 </script>

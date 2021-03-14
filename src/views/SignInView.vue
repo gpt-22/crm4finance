@@ -5,14 +5,15 @@
   >
     <div class="card-content">
       <span class="card-title">Вход в домашнюю бухгалтерию</span>
+
       <div class="input-field">
         <input
           v-model="email"
           @input="emailValidationStarted=true"
+          v-focus
           id="email"
           type="text"
           class="validate"
-          autofocus
         >
         <label for="email">Email</label>
         <template v-if="emailValidationStarted">
@@ -27,6 +28,7 @@
           </small>
         </template>
       </div>
+
       <div class="input-field">
         <input
           v-model="password"
@@ -66,49 +68,21 @@
 </template>
 
 <script>
+import { authMixin } from '@/mixins/authMixin'
+import messages from '@/utils/messages'
+
 export default {
   name: 'SignIn',
-  data() {
-    return {
-      email: '',
-      emailValidationStarted: false,
-      emailMinLength: 11,
-      password: '',
-      passwordValidationStarted: false,
-      passwordMinLength: 6
+  mixins: [authMixin],
+  mounted() {
+    const routMessage = this.$route.query.message
+    if (routMessage) {
+      this.$successMessage(messages[routMessage])
     }
   },
   computed: {
-    emailNotEmpty() {
-      return this.email.length
-    },
-    hasEmailMinLength() {
-      return this.email.length >= this.emailMinLength
-    },
-    emailCharsLeft() {
-      return this.emailMinLength - this.email.length
-    },
-    emailIsEmail() {
-      const re = /\S+@\S+\.\S{2,3}$/
-      return re.test(this.email)
-    },
-    emailIsValid() {
-      return this.emailNotEmpty && this.emailIsEmail && this.hasEmailMinLength
-    },
-    passwordNotEmpty() {
-      return this.password.length
-    },
-    hasPasswordMinLength() {
-      return this.password.length >= this.passwordMinLength
-    },
-    passwordCharsLeft() {
-      return this.passwordMinLength - this.password.length
-    },
-    passwordIsValid() {
-      return this.passwordNotEmpty && this.hasPasswordMinLength
-    },
     formIsValid() {
-      return this.emailIsValid && this.passwordIsValid
+      return this.emailIsValid() && this.passwordIsValid()
     }
   },
   methods: {
@@ -118,6 +92,7 @@ export default {
         password: this.password
       }
       console.log('form is valid:', formData)
+      this.$router.push('/')
     }
   }
 }
