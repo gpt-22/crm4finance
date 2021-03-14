@@ -2,10 +2,9 @@
   <form
     @submit.prevent="onSubmit"
     class="card auth-card"
-    autocomplete="off"
   >
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <span class="card-title">Вход в домашнюю бухгалтерию</span>
       <div class="input-field">
         <input
           v-model="email"
