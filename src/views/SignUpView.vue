@@ -14,6 +14,7 @@
           id="email"
           type="text"
           class="validate"
+          autocomplete="email"
         >
         <label for="email">Email</label>
         <template v-if="emailValidationStarted">
@@ -36,6 +37,7 @@
           id="password"
           type="password"
           class="validate"
+          autocomplete="new-password"
         >
         <label for="password">Пароль</label>
         <template v-if="passwordValidationStarted">
@@ -55,6 +57,7 @@
           id="repeatedPassword"
           type="password"
           class="validate"
+          autocomplete="new-password"
         >
         <label for="repeatedPassword">Повторите пароль</label>
         <template v-if="password2ValidationStarted">
@@ -77,6 +80,7 @@
           id="name"
           type="text"
           class="validate"
+          autocomplete="given-name"
         >
         <label for="name">Имя</label>
         <small v-if="nameValidationStarted && !nameNotEmpty" class="helper-text invalid">
@@ -156,15 +160,19 @@ export default {
     password2IsValid() {
       return this.password2NotEmpty && this.hasPassword2MinLength
     },
-    onSubmit() {
+    async onSubmit() {
       const formData = {
         email: this.email,
         password: this.password,
-        password2: this.password2,
         name: this.name
       }
-      console.log('form is valid:', formData)
-      this.$router.push('/')
+
+      try {
+        await this.$store.dispatch('signUp', formData)
+        await this.$router.push('/')
+      } catch (error) {
+        // the error will be caught in AuthLayout
+      }
     }
   }
 }

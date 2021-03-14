@@ -14,6 +14,7 @@
           id="email"
           type="text"
           class="validate"
+          autocomplete="email"
         >
         <label for="email">Email</label>
         <template v-if="emailValidationStarted">
@@ -36,6 +37,7 @@
           id="password"
           type="password"
           class="validate"
+          autocomplete="current-password"
         >
         <label for="password">Пароль</label>
         <template v-if="passwordValidationStarted">
@@ -86,13 +88,18 @@ export default {
     }
   },
   methods: {
-    onSubmit() {
+    async onSubmit() {
       const formData = {
         email: this.email,
         password: this.password
       }
-      console.log('form is valid:', formData)
-      this.$router.push('/')
+
+      try {
+        await this.$store.dispatch('signIn', formData)
+        this.$router.push('/')
+      } catch (error) {
+        // the error will be caught in AuthLayout
+      }
     }
   }
 }
