@@ -79,7 +79,11 @@ export default {
   mounted() {
     const routMessage = this.$route.query.message
     if (routMessage) {
-      this.$successMessage(messages[routMessage])
+      if (routMessage === 'sign-out') {
+        this.$successMessage(messages[routMessage])
+      } else {
+        this.$defaultMessage(messages[routMessage])
+      }
     }
   },
   computed: {
@@ -96,7 +100,7 @@ export default {
 
       try {
         await this.$store.dispatch('signIn', formData)
-        this.$router.push('/')
+        await this.$router.push('/?message=signed-in')
       } catch (error) {
         // the error will be caught in AuthLayout
       }

@@ -52,9 +52,15 @@
 </template>
 
 <script>
-// @ is an alias to /src
+import messages from '@/utils/messages'
 
 export default {
-  name: 'Dashboard'
+  name: 'Dashboard',
+  mounted() {
+    const routMessage = this.$route.query.message
+    if (routMessage) {
+      this.$successMessage(messages[routMessage])
+    }
+  }
 }
 </script>

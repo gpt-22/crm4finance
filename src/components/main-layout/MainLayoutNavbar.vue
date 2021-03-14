@@ -80,7 +80,7 @@ export default {
   methods: {
     async logout() {
       await this.$store.dispatch('signOut')
-      await this.$router.push('/sign-in?message=logout')
+      await this.$router.push('/sign-in?message=sign-out')
     }
   }
 }
