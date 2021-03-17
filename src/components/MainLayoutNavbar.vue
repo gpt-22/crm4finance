@@ -16,7 +16,7 @@
             data-target="dropdown"
             ref="dropdown"
           >
-            USER NAME
+            {{ name }}
             <i class="material-icons right">arrow_drop_down</i>
           </a>
 
@@ -53,7 +53,9 @@ export default {
   },
   mounted() {
     // eslint-disable-next-line
-    this.dropdown = M.Dropdown.init(this.$refs.dropdown)
+    this.dropdown = M.Dropdown.init(this.$refs.dropdown, {
+      constrainWidth: false
+    })
     this.interval = setInterval(() => {
       this.date = new Date()
     }, 1000)
@@ -75,6 +77,9 @@ export default {
         second: '2-digit'
       }
       return new Intl.DateTimeFormat('ru-RU', options).format(this.date)
+    },
+    name() {
+      return this.$store.getters.accountInfo.name
     }
   },
   methods: {

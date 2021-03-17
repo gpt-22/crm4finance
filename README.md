@@ -6,7 +6,13 @@ npm install
 ```
 * create new project on Firebase
 * enable authentication by Email/Password
-* create a database with next "rules": { ".read": "auth != null", ".write": "auth != null" }
+* create a database with next "rules": 
+```
+{ 
+  ".read": "auth != null", 
+  ".write": "auth != null" 
+}
+```
 * create .env.local file
 * create Web application and paste Firebase config in .env.local file:
 ```
@@ -14,6 +20,7 @@ VUE_APP_apiKey=yourApiKeyStringWithoutQuotes
 VUE_APP_authDomain=yourApp.firebaseapp.com
 ...
 ```
+* get api key from https://free.currencyconverterapi.com/ and save it in .env.local as VUE_APP_currconv_apiKey
 
 ### Compiles and hot-reloads for development
 ```

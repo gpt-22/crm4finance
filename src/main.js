@@ -3,6 +3,7 @@ import App from './App.vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
+import AppPreloader from '@/components/AppPreloader'
 
 import 'materialize-css/dist/js/materialize.min'
 import toastMessagePlugin from './utils/toastMessage.plugin'
@@ -31,6 +32,7 @@ firebase.auth().onAuthStateChanged(() => {
 
   Vue.config.productionTip = false
 
+  Vue.component('Preloader', AppPreloader)
   Vue.use(toastMessagePlugin)
 
   app = new Vue({

@@ -10,14 +10,17 @@ export default {
         throw error
       }
     },
-    async signOut() {
+    async signOut({ commit }) {
       await firebase.auth().signOut()
+      commit('clearAccountInfo')
     },
     async signUp({ dispatch, commit }, { email, password, name }) {
       try {
         await firebase.auth().createUserWithEmailAndPassword(email, password)
         const uid = await dispatch('getUid')
-        await firebase.database().ref(`/users/${uid}/accountInfo`).set({ name })
+        await firebase.database()
+          .ref(`/users/${uid}/accountInfo`)
+          .set({ name, money: 10000 })
       } catch (error) {
         commit('setError', error)
         throw error
