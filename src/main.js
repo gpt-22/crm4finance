@@ -8,6 +8,8 @@ import AppPreloader from '@/components/AppPreloader'
 import 'materialize-css/dist/js/materialize.min'
 import toastMessagePlugin from './utils/toastMessage.plugin'
 
+import tooltipDirective from './directives/tooltip.directive'
+
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
@@ -33,6 +35,7 @@ firebase.auth().onAuthStateChanged(() => {
   Vue.config.productionTip = false
 
   Vue.component('Preloader', AppPreloader)
+  Vue.directive('tooltip', tooltipDirective)
   Vue.use(toastMessagePlugin)
 
   app = new Vue({

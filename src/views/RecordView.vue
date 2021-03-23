@@ -166,7 +166,7 @@ export default {
             this.formSubmitted = false
           } catch (error) {}
         } else {
-          this.$errorMessage(`Недостаточно средств: ${this.amount - this.accountInfo.money}`)
+          this.$errorMessage(`Недостаточно средств: ${this.amount - this.accountInfo.money}₽`)
         }
       }
     }
