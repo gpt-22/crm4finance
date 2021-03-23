@@ -2,7 +2,7 @@
   <div>
     <div class="page-title">
       <h3>Планирование</h3>
-      <h4>Баланс {{ accountInfo.money }}₽</h4>
+      <h4>Баланс {{ accountInfo.money }} ₽</h4>
     </div>
 
     <Preloader v-if="loading" />
@@ -23,7 +23,7 @@
           <strong>{{ category.title }}:</strong>
           {{ category.spentMoney }} из {{ category.limit }}
         </p>
-        <div class="progress" >
+        <div class="progress" v-tooltip="category.tooltipValue">
           <div
             class="determinate"
             :class="category.color"
@@ -67,15 +67,19 @@ export default {
         .reduce((result, record) => result + +record.amount, 0)
       const spentPercent = spentMoney / category.limit
       const formattedPercent = spentPercent >= 100 ? 100 : spentPercent * 100
+      let tooltipValue
+      if (spentMoney > category.limit) {
+        tooltipValue = `Лимит превышен на ${spentMoney - category.limit} ₽`
+      } else if (spentMoney === category.limit) {
+        tooltipValue = 'Лимит исчерпан'
+      } else tooltipValue = `Осталось ${category.limit - spentMoney} ₽`
 
       mutatedCategory.spentMoney = spentMoney
       mutatedCategory.percent = formattedPercent
       mutatedCategory.color = this.getColor(formattedPercent)
-      console.log(mutatedCategory.color)
+      mutatedCategory.tooltipValue = tooltipValue
       return mutatedCategory
     })
-
-    // console.log(this.categories)
 
     this.loading = false
   },
