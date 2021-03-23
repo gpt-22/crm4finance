@@ -56,7 +56,7 @@ const routes = [
     component: () => import('../views/RecordView')
   },
   {
-    path: '/record-detail',
+    path: '/record-detail/:id',
     name: 'Record-detail',
     meta: { layout: 'main', auth: true },
     component: () => import('../views/RecordDetailView')

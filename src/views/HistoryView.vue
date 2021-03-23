@@ -4,46 +4,73 @@
       <h3>История записей</h3>
     </div>
 
-    <div class="history-chart">
-      <canvas></canvas>
-    </div>
+    <Preloader v-if="loading" />
 
-    <section>
-      <table>
-        <thead>
-        <tr>
-          <th>#</th>
-          <th>Сумма</th>
-          <th>Дата</th>
-          <th>Категория</th>
-          <th>Тип</th>
-          <th>Открыть</th>
-        </tr>
-        </thead>
+    <h3
+      v-else-if="!records.length"
+      class="center"
+    >
+      Записей нет. <router-link to="/categories">Создайте первую!</router-link>
+    </h3>
 
-        <tbody>
-        <tr>
-          <td>1</td>
-          <td>1212</td>
-          <td>12.12.32</td>
-          <td>name</td>
-          <td>
-            <span class="white-text badge red">Расход</span>
-          </td>
-          <td>
-            <button class="btn-small btn">
-              <i class="material-icons">open_in_new</i>
-            </button>
-          </td>
-        </tr>
-        </tbody>
-      </table>
+    <section v-else>
+      <history-chart></history-chart>
+      <history-table :records="records"></history-table>
     </section>
   </div>
 </template>
 
 <script>
+import HistoryChart from '@/components/HistoryChart'
+import HistoryTable from '@/components/HistoryTable'
+
 export default {
-  name: 'History'
+  name: 'History',
+  components: {
+    HistoryChart,
+    HistoryTable
+  },
+  data() {
+    return {
+      loading: true,
+      categories: [],
+      records: []
+    }
+  },
+  async mounted() {
+    this.categories = await this.$store.dispatch('fetchCategories')
+
+    const records = []
+
+    const options = {
+      day: '2-digit',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit'
+    }
+    this.categories.forEach(category => {
+      const categoryRecords = ('records' in category)
+        ? Object.keys(category.records).map(key => {
+          const record = category.records[key]
+          record.id = key
+          return record
+        })
+        : []
+
+      console.log(categoryRecords)
+      categoryRecords.forEach(record => {
+        record.categoryTitle = category.title
+        record.typeClass = record.type === 'income' ? 'green' : 'red'
+        record.typeText = record.type === 'income' ? 'Доход' : 'Расход'
+        const dateObj = new Date(record.date)
+        record.date = new Intl.DateTimeFormat('ru-RU', options).format(dateObj)
+      })
+      records.push(...categoryRecords)
+    })
+    this.records = records
+    this.loading = false
+  }
 }
 </script>
