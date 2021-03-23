@@ -35,7 +35,7 @@ export default {
   },
   data() {
     return {
-      isSidebarOpened: false,
+      isSidebarOpened: true,
       loading: true
     }
   },
