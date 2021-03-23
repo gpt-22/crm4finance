@@ -21,7 +21,21 @@ export default {
           .once('value')
         const accountInfo = dataSnapshot.val()
         commit('setAccountInfo', accountInfo)
-      } catch (error) {}
+      } catch (error) {
+        commit('setError', error)
+        throw error
+      }
+    },
+    async updateAccountInfo({ dispatch, commit, getters }, toUpdate) {
+      try {
+        const uid = await dispatch('getUid')
+        const updatedInfo = { ...getters.accountInfo, ...toUpdate }
+        await firebase.database().ref(`/users/${uid}/accountInfo`).update(updatedInfo)
+        commit('setAccountInfo', updatedInfo)
+      } catch (error) {
+        commit('setError', error)
+        throw error
+      }
     }
   },
   getters: {
