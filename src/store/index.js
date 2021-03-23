@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import auth from './auth'
-import accountInfo from './accountInfo'
+import auth from '@/store/auth'
+import categories from '@/store/categories'
+import accountInfo from '@/store/accountInfo'
 
 Vue.use(Vuex)
 
@@ -32,6 +33,7 @@ export default new Vuex.Store({
   },
   modules: {
     auth,
-    accountInfo
+    accountInfo,
+    categories
   }
 })
