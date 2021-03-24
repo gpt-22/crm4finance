@@ -15,7 +15,7 @@
 
     <section v-else>
       <history-chart></history-chart>
-      <history-table :records="records"></history-table>
+      <history-table :entries="records"></history-table>
     </section>
   </div>
 </template>

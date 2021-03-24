@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { authMixin } from '@/mixins/authMixin'
+import { authMixin } from '@/mixins/auth.mixin'
 import messages from '@/utils/messages'
 
 export default {

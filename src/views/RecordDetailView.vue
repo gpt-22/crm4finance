@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="breadcrumb-wrap">
-      <router-link to="/history" class="breadcrumb">
+      <router-link to="/history?page=1" class="breadcrumb">
         История
       </router-link>
       <a @click.prevent href="/" class="breadcrumb">

@@ -118,7 +118,7 @@
 </template>
 
 <script>
-import { authMixin } from '@/mixins/authMixin'
+import { authMixin } from '@/mixins/auth.mixin'
 
 export default {
   name: 'SignUp',
