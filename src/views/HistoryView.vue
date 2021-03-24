@@ -10,7 +10,7 @@
       v-else-if="!records.length"
       class="center"
     >
-      Записей нет. <router-link to="/categories">Создайте первую!</router-link>
+      Записей нет. <router-link to="/record">Создайте первую!</router-link>
     </h3>
 
     <section v-else>
@@ -59,8 +59,8 @@ export default {
         })
         : []
 
-      console.log(categoryRecords)
       categoryRecords.forEach(record => {
+        record.categoryID = category.id
         record.categoryTitle = category.title
         record.typeClass = record.type === 'income' ? 'green' : 'red'
         record.typeText = record.type === 'income' ? 'Доход' : 'Расход'

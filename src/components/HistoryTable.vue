@@ -30,7 +30,7 @@
       </td>
       <td>
         <button
-          @click="$router.push(`/record-detail/${record.id}`)"
+          @click="goToRecordDetail(record.categoryID, record.id)"
           v-tooltip="'Посмотреть запись'"
           data-position="left"
           class="btn-small btn"
@@ -50,6 +50,11 @@ export default {
     records: {
       type: Array,
       required: true
+    }
+  },
+  methods: {
+    goToRecordDetail(categoryID, recordID) {
+      this.$router.push(`/record-detail/${categoryID}/${recordID}/`)
     }
   }
 }
