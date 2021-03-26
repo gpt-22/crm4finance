@@ -6,6 +6,8 @@ import store from './store'
 import AppPreloader from '@/components/AppPreloader'
 import AppPagination from '@/components/AppPagination'
 
+import localizeFilter from './filters/localize.filter'
+
 import tooltipDirective from './directives/tooltip.directive'
 
 import toastMessagePlugin from './utils/toastMessage.plugin'
@@ -41,6 +43,9 @@ firebase.auth().onAuthStateChanged(() => {
   // components
   Vue.component('Preloader', AppPreloader)
   Vue.component('Pagination', AppPagination)
+
+  // filters
+  Vue.filter('localize', localizeFilter)
 
   // directives
   Vue.directive('tooltip', tooltipDirective)
