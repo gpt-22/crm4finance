@@ -14,7 +14,9 @@
     </h3>
 
     <section v-else>
-      <history-chart></history-chart>
+      <history-chart
+        :categories-titles="categoriesTitles"
+        :outcomes="outcomes"></history-chart>
       <history-table :entries="records"></history-table>
     </section>
   </div>
@@ -33,15 +35,16 @@ export default {
   data() {
     return {
       loading: true,
-      categories: [],
+      categoriesTitles: [],
+      outcomes: [],
       records: []
     }
   },
   async mounted() {
-    this.categories = await this.$store.dispatch('fetchCategories')
+    const categories = await this.$store.dispatch('fetchCategories')
+    this.categoriesTitles = categories.map(category => category.title)
 
     const records = []
-
     const options = {
       day: '2-digit',
       month: 'long',
@@ -50,7 +53,7 @@ export default {
       minute: '2-digit',
       second: '2-digit'
     }
-    this.categories.forEach(category => {
+    categories.forEach(category => {
       const categoryRecords = ('records' in category)
         ? Object.keys(category.records).map(key => {
           const record = category.records[key]
@@ -58,6 +61,8 @@ export default {
           return record
         })
         : []
+
+      this.calcCategoryOutcomes(categoryRecords)
 
       categoryRecords.forEach(record => {
         record.categoryID = category.id
@@ -71,6 +76,13 @@ export default {
     })
     this.records = records
     this.loading = false
+  },
+  methods: {
+    calcCategoryOutcomes(categoryRecords) {
+      this.outcomes.push(categoryRecords
+        .filter(record => record.type === 'outcome')
+        .reduce((outcomes, record) => outcomes + record.amount, 0))
+    }
   }
 }
 </script>

@@ -1,14 +1,18 @@
 import Vue from 'vue'
 import App from './App.vue'
-import './registerServiceWorker'
 import router from './router'
 import store from './store'
-import AppPreloader from '@/components/AppPreloader'
 
-import 'materialize-css/dist/js/materialize.min'
-import toastMessagePlugin from './utils/toastMessage.plugin'
+import AppPreloader from '@/components/AppPreloader'
+import AppPagination from '@/components/AppPagination'
 
 import tooltipDirective from './directives/tooltip.directive'
+
+import toastMessagePlugin from './utils/toastMessage.plugin'
+
+import './registerServiceWorker'
+import 'materialize-css/dist/js/materialize.min'
+import 'chart.js/dist/Chart.bundle.min'
 
 import firebase from 'firebase/app'
 import 'firebase/auth'
@@ -34,8 +38,14 @@ firebase.auth().onAuthStateChanged(() => {
 
   Vue.config.productionTip = false
 
+  // components
   Vue.component('Preloader', AppPreloader)
+  Vue.component('Pagination', AppPagination)
+
+  // directives
   Vue.directive('tooltip', tooltipDirective)
+
+  // plugins
   Vue.use(toastMessagePlugin)
 
   app = new Vue({

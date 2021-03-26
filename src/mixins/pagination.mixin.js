@@ -7,7 +7,7 @@ export default {
   },
   data() {
     return {
-      activePage: 1,
+      activePage: +this.$route.query.page || 1,
       pageEntriesCount: 3
     }
   },

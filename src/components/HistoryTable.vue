@@ -43,7 +43,7 @@
       </tbody>
     </table>
 
-    <AppPagination
+    <Pagination
       @changePage="changePage"
       :pagesCount="pagesCount"
       :active-page="activePage"
@@ -54,12 +54,10 @@
 
 <script>
 import paginationMixin from '@/mixins/pagination.mixin'
-import AppPagination from '@/components/AppPagination'
 
 export default {
   name: 'HistoryTable',
   mixins: [paginationMixin],
-  components: { AppPagination },
   data() {
     return {
       pageEntriesCount: 5
