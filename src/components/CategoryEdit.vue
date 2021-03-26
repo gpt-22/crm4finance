@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-subtitle">
-      <h4>Редактировать</h4>
+      <h4>{{ 'CategoryEditTitle' | localize }}</h4>
     </div>
 
     <form @submit.prevent="onSubmit">
@@ -16,7 +16,9 @@
             :value="category"
           >{{ category.title }}</option>
         </select>
-        <label>Выберите категорию</label>
+        <label>
+          {{ 'CategoryEditSelectLabel' | localize }}
+        </label>
       </div>
 
       <div class="input-field">
@@ -25,13 +27,15 @@
           type="text"
           id="name"
         >
-        <label for="name" class="active">Название</label>
+        <label for="name" class="active">
+          {{ 'CategoryEditCategoryTitleLabel' | localize }}
+        </label>
         <template v-if="formSubmitted">
           <span
             v-if="!newTitle.length"
             class="helper-text invalid"
           >
-            Введите название категории
+            {{ 'CategoryEditCategoryTitleHintRequired' | localize }}
           </span>
         </template>
       </div>
@@ -42,19 +46,21 @@
           id="limit"
           type="number"
         >
-        <label for="limit" class="active">Лимит</label>
+        <label for="limit" class="active">
+          {{ 'CategoryEditCategoryLimitLabel' | localize }}
+        </label>
         <template v-if="formSubmitted">
           <span v-if="!newLimit" class="helper-text invalid">
-            Введите лимит
+            {{ 'CategoryEditCategoryLimitHintRequired' | localize }}
           </span>
           <span v-else-if="newLimit < minLimit" class="helper-text invalid">
-            Минимум {{ minLimit }}
+            {{ 'CategoryEditCategoryLimitHintMinimum' | localize }} {{ minLimit }}
           </span>
         </template>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        Обновить
+        {{ 'CategoryEditButton' | localize }}
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -62,6 +68,8 @@
 </template>
 
 <script>
+import localize from '../filters/localize.filter'
+
 export default {
   name: 'CategoryEdit',
   props: {
@@ -113,7 +121,13 @@ export default {
           }
           await this.$store.dispatch('updateCategory', newCategoryData)
           this.formSubmitted = false
-          this.$successMessage(`Категория ${this.selected.title} обновлена`)
+          this.$successMessage(
+            `${
+              localize('SuccessMessagePart1')
+            } ${this.selected.title} ${
+              localize('SuccessMessagePart2')
+            }`
+          )
           this.$emit('updated', newCategoryData)
         } catch (error) {}
       }

@@ -5,7 +5,7 @@
         <a href="#" @click.prevent="$emit('toggle-sidebar')" >
           <i class="material-icons black-text">dehaze</i>
         </a>
-        <span class="black-text">{{ formattedDate }}</span>
+        <span class="black-text">{{ date | datetime }}</span>
       </div>
 
       <ul class="right hide-on-small-and-down">
@@ -24,14 +24,14 @@
             <li>
               <router-link to="/profile" class="black-text">
                 <i class="material-icons">account_circle</i>
-                Профиль
+                {{ 'NavbarLinkProfile' | localize }}
               </router-link>
             </li>
             <li class="divider"></li>
             <li>
               <a href="#" @click.prevent="logout" class="black-text">
                 <i class="material-icons">assignment_return</i>
-                Выйти
+                {{ 'NavbarLinkSignOut' | localize }}
               </a>
             </li>
           </ul>
@@ -67,17 +67,6 @@ export default {
     clearInterval(this.interval)
   },
   computed: {
-    formattedDate() {
-      const options = {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      }
-      return new Intl.DateTimeFormat('ru-RU', options).format(this.date)
-    },
     name() {
       return this.$store.getters.accountInfo.name
     }

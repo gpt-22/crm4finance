@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Категории</h3>
+      <h3>{{ 'CategoriesTitle' | localize }}</h3>
     </div>
     <section>
       <Preloader v-if="loading" />
@@ -18,7 +18,9 @@
             :key="categories.length + updateCount"
             @updated="onUpdated"
           ></category-edit>
-          <h2 v-else>Создайте свою первую категорию :)</h2>
+          <h2 v-else>
+            {{ 'CategoriesNoCategories' | localize }}
+          </h2>
         </div>
       </div>
     </section>

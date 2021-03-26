@@ -3,7 +3,10 @@
 
       <main-layout-navbar @toggle-sidebar="toggleSidebar"></main-layout-navbar>
 
-      <main-layout-sidebar v-model="isSidebarOpened"></main-layout-sidebar>
+      <main-layout-sidebar
+        v-model="isSidebarOpened"
+        :key="locale"
+      ></main-layout-sidebar>
 
       <main
         class="app-content"
@@ -50,6 +53,11 @@ export default {
     }
 
     this.loading = false
+  },
+  computed: {
+    locale() {
+      return this.$store.getters.accountInfo.locale
+    }
   },
   methods: {
     toggleSidebar() {

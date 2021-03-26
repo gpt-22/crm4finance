@@ -1,7 +1,9 @@
 <template>
   <div class="card light-blue bill-card">
     <div class="card-content white-text">
-      <span class="card-title">Счет в валюте</span>
+      <span class="card-title">
+        {{ 'DashboardBillTitle' | localize }}
+      </span>
 
       <p
         v-for="currency in update.currencies"

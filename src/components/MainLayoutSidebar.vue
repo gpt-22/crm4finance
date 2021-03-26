@@ -19,17 +19,19 @@
 </template>
 
 <script>
+import localize from '@/filters/localize.filter'
+
 export default {
   name: 'MainLayoutSidebar',
   props: ['value'],
   data() {
     return {
       links: [
-        { to: '/', text: 'Счет' },
-        { to: '/history', text: 'История' },
-        { to: '/planning', text: 'Планирование' },
-        { to: '/record', text: 'Новая запись' },
-        { to: '/categories', text: 'Категории' }
+        { to: '/', text: localize('SidebarLinkDashboard') },
+        { to: '/history', text: localize('SidebarLinkHistory') },
+        { to: '/planning', text: localize('SidebarLinkPlanning') },
+        { to: '/record', text: localize('SidebarLinkNewRecord') },
+        { to: '/categories', text: localize('SidebarLinkCategories') }
       ],
       activeLink: null
     }

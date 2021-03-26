@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Новая запись</h3>
+      <h3>{{ 'RecordTitle' | localize }}</h3>
     </div>
 
     <Preloader v-if="loading" />
@@ -9,7 +9,10 @@
       v-else-if="!categories.length"
       class="center"
     >
-      Для начала <router-link to="/categories">создайте первую категорию</router-link>
+      {{ 'RecordNoCategoriesPart1' | localize }}
+      <router-link to="/categories">
+        {{ 'RecordNoCategoriesPart2' | localize }}
+      </router-link>
     </h3>
     <form
       v-else
@@ -27,7 +30,7 @@
             :value="category"
           >{{ category.title }}</option>
         </select>
-        <label>Выберите категорию</label>
+        <label>{{ 'RecordSelectCategory' | localize }}</label>
       </div>
 
       <p>
@@ -39,7 +42,7 @@
             type="radio"
             value="income"
           />
-          <span>Доход</span>
+          <span>{{ 'Income' | localize }}</span>
         </label>
       </p>
 
@@ -52,7 +55,7 @@
             type="radio"
             value="outcome"
           />
-          <span>Расход</span>
+          <span>{{ 'Outcome' | localize }}</span>
         </label>
       </p>
 
@@ -62,10 +65,14 @@
           id="amount"
           type="number"
         >
-        <label for="amount">Сумма</label>
+        <label for="amount">{{ 'RecordAmount' | localize }}</label>
         <template v-if="formSubmitted">
-          <span v-if="amount === ''" class="helper-text invalid">Введите сумму</span>
-          <span v-else-if="amount < 1" class="helper-text invalid">Минимум 1</span>
+          <span v-if="amount === ''" class="helper-text invalid">
+            {{ 'RecordAmountRequired' | localize }}
+          </span>
+          <span v-else-if="amount < 1" class="helper-text invalid">
+            {{ 'RecordAmountMin' | localize }}
+          </span>
         </template>
       </div>
 
@@ -75,11 +82,13 @@
           id="description"
           type="text"
         >
-        <label for="description">Описание</label>
+        <label for="description">
+          {{ 'RecordDescription' | localize }}
+        </label>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        Создать
+        {{ 'RecordCreate' | localize }}
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -88,6 +97,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import localize from '@/filters/localize.filter'
 
 export default {
   name: 'Record',
@@ -149,7 +159,7 @@ export default {
           // create category
           try {
             await this.createRecord()
-            this.$successMessage('Новая запись успешно создана')
+            this.$successMessage(localize('RecordSuccessMessage'))
 
             // change account money
             const newMoney = this.type === 'income'
@@ -166,7 +176,9 @@ export default {
             this.formSubmitted = false
           } catch (error) {}
         } else {
-          this.$errorMessage(`Недостаточно средств: ${this.amount - this.accountInfo.money}₽`)
+          this.$errorMessage(`${
+            localize('RecordInsufficientFunds')
+          }: ${this.amount - this.accountInfo.money}₽`)
         }
       }
     }

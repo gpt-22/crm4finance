@@ -1,8 +1,8 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>Планирование</h3>
-      <h4>Баланс {{ accountInfo.money }} ₽</h4>
+      <h3>{{ 'PlanningTitle' | localize }}</h3>
+      <h4>{{ 'PlanningBalance' | localize }} {{ accountInfo.money }} ₽</h4>
     </div>
 
     <Preloader v-if="loading" />
@@ -11,7 +11,10 @@
       v-else-if="!categories.length"
       class="center"
     >
-      Для начала <router-link to="/categories">создайте первую категорию</router-link>
+      {{ 'PlanningTitleNoCategoriesPart1' | localize }}
+      <router-link to="/categories">
+        PlanningTitleNoCategoriesPart1
+      </router-link>
     </h3>
 
     <section v-else>
@@ -21,7 +24,7 @@
       >
         <p>
           <strong>{{ category.title }}:</strong>
-          {{ category.spentMoney }} из {{ category.limit }}
+          {{ category.spentMoney }} {{ 'PlanningTitleOf' | localize }} {{ category.limit }}
         </p>
         <div class="progress" v-tooltip="category.tooltipValue">
           <div
@@ -37,6 +40,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import localize from '@/filters/localize.filter'
 
 export default {
   name: 'Planning',
@@ -69,11 +73,14 @@ export default {
       const formattedPercent = spentPercent >= 100 ? 100 : spentPercent * 100
       let tooltipValue
       if (spentMoney > category.limit) {
-        tooltipValue = `Лимит превышен на ${spentMoney - category.limit} ₽`
+        tooltipValue = `${localize('PlanningTitleLimitExceeded')} \
+         ${spentMoney - category.limit} ₽`
       } else if (spentMoney === category.limit) {
-        tooltipValue = 'Лимит исчерпан'
-      } else tooltipValue = `Осталось ${category.limit - spentMoney} ₽`
-
+        tooltipValue = localize('PlanningTitleLimitReached')
+      } else {
+        tooltipValue = `${localize('PlanningTitleLimitLeft')} \
+        ${category.limit - spentMoney} ₽`
+      }
       mutatedCategory.spentMoney = spentMoney
       mutatedCategory.percent = formattedPercent
       mutatedCategory.color = this.getColor(formattedPercent)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-subtitle">
-      <h4>Создать</h4>
+      <h4>{{ 'CategoryCreateTitle' | localize }}</h4>
     </div>
 
     <form @submit.prevent="onSubmit">
@@ -11,13 +11,13 @@
           id="title"
           type="text"
         >
-        <label for="title">Название</label>
+        <label for="title">{{ 'CategoryCreateTitleLabel' | localize }}</label>
         <template v-if="formSubmitted">
           <span
             v-if="!title.length"
             class="helper-text invalid"
           >
-          Введите название
+          {{ 'CategoryCreateTitleHintRequired' | localize }}
         </span>
         </template>
       </div>
@@ -28,19 +28,21 @@
           id="limit"
           type="number"
         >
-        <label for="limit">Лимит</label>
+        <label for="limit">
+          {{ 'CategoryCreateLimitLabel' | localize }}
+        </label>
         <template v-if="formSubmitted">
           <span v-if="!limit" class="helper-text invalid">
-            Введите лимит
+            {{ 'CategoryCreateLimitHintRequired' | localize }}
           </span>
           <span v-else-if="limit < minLimit" class="helper-text invalid">
-            Минимум {{ minLimit }}
+            {{ 'CategoryCreateLimitHintMin' | localize }} {{ minLimit }}
           </span>
         </template>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        Создать
+        {{ 'CategoryCreateButton' | localize }}
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -79,9 +81,4 @@ export default {
     }
   }
 }
-
-/* TODO:
-*   get categories from firebase
-*   render select
-*   update selected category view */
 </script>

@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="page-title">
-        <h3>Счет</h3>
+        <h3>{{ 'DashboardTitle' | localize }}</h3>
 
         <button class="btn waves-effect waves-light btn-small" @click="refresh">
           <i class="material-icons">refresh</i>
@@ -26,6 +26,7 @@
 import messages from '@/utils/messages'
 import DashboardBill from '@/components/DashboardBill'
 import DashboardCurrencies from '@/components/DashboardCurrencies'
+import datetime from '@/filters/format-datetime.filter'
 
 export default {
   name: 'Dashboard',
@@ -55,17 +56,8 @@ export default {
     currencies.forEach(c => {
       if (!c.value) c.value = response[c.ticker + '_RUB'].val
     })
-    const options = {
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric'
-    }
-    const updateTime = new Intl.DateTimeFormat('ru-RU', options).format(new Date())
     this.update = {
-      dateTime: updateTime,
+      dateTime: datetime(new Date()),
       currencies: currencies
     }
     this.loading = false
@@ -83,18 +75,8 @@ export default {
       currencies.forEach(c => {
         if (!c.value) c.value = response[c.ticker + '_RUB'].val
       })
-      const options = {
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-      }
-      let updateTime = new Date()
-      updateTime = new Intl.DateTimeFormat('ru-RU', options).format(updateTime)
       this.update = {
-        dateTime: updateTime,
+        dateTime: datetime(new Date()),
         currencies: currencies
       }
       this.loading = false

@@ -7,6 +7,7 @@ import AppPreloader from '@/components/AppPreloader'
 import AppPagination from '@/components/AppPagination'
 
 import localizeFilter from './filters/localize.filter'
+import formatDatetimeFilter from './filters/format-datetime.filter'
 
 import tooltipDirective from './directives/tooltip.directive'
 
@@ -46,6 +47,7 @@ firebase.auth().onAuthStateChanged(() => {
 
   // filters
   Vue.filter('localize', localizeFilter)
+  Vue.filter('datetime', formatDatetimeFilter)
 
   // directives
   Vue.directive('tooltip', tooltipDirective)

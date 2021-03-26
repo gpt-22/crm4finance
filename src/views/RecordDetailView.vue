@@ -2,7 +2,7 @@
   <div>
     <div class="breadcrumb-wrap">
       <router-link to="/history?page=1" class="breadcrumb">
-        История
+        {{ 'RecordDetailBreadcrumb' | localize }}
       </router-link>
       <a @click.prevent href="/" class="breadcrumb">
         {{ recordType }}
@@ -15,9 +15,9 @@
       <div class="col s12 m6">
         <div class="card" :class="recordClass">
           <div class="card-content white-text">
-            <p>Описание: {{ record.description }}</p>
-            <p>Сумма: {{ record.amount }}</p>
-            <p>Категория: {{ category.title }}</p>
+            <p>{{ 'RecordDetailDescription' | localize }} {{ record.description }}</p>
+            <p>{{ 'RecordDetailSummary' | localize }} {{ record.amount }}</p>
+            <p>{{ 'RecordDetailCategory' | localize }} {{ category.title }}</p>
             <small>{{ recordDate }}</small>
           </div>
         </div>
@@ -25,12 +25,19 @@
     </div>
 
     <h3 v-else class="center">
-      Записи с id {{ $route.params.id }} нет. <router-link to="/record">Создать запись</router-link>
+      {{ 'RecordDetailNoRecordPart1' | localize }} {{ $route.params.id }}
+      {{ 'RecordDetailNoRecordPart2' | localize }}
+      <router-link to="/record">
+        {{ 'RecordDetailNoRecordPart3' | localize }}
+      </router-link>
     </h3>
   </div>
 </template>
 
 <script>
+import localize from '@/filters/localize.filter'
+import datetime from '@/filters/format-datetime.filter'
+
 export default {
   name: 'Record-detail',
   data() {
@@ -58,21 +65,14 @@ export default {
     recordType() {
       let type
       if (this.record) {
-        type = this.record.type === 'income' ? 'Доход' : 'Расход'
-      } else type = 'Запись'
+        type = (this.record.type === 'income')
+          ? localize('Income')
+          : localize('Outcome')
+      } else type = localize('Record')
       return type
     },
     recordDate() {
-      const options = {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-      }
-      const dateObj = new Date(this.record.date)
-      return new Intl.DateTimeFormat('ru-RU', options).format(dateObj)
+      return datetime(new Date(this.record.date))
     }
   }
 }

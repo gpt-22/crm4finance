@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-title">
-      <h3>История записей</h3>
+      <h3>{{ 'HistoryTitle' | localize }}</h3>
     </div>
 
     <Preloader v-if="loading" />
@@ -10,7 +10,10 @@
       v-else-if="!records.length"
       class="center"
     >
-      Записей нет. <router-link to="/record">Создайте первую!</router-link>
+      {{ 'HistoryNoRecordsPart1' | localize }}
+      <router-link to="/record">
+        {{ 'HistoryNoRecordsPart2' | localize }}
+      </router-link>
     </h3>
 
     <section v-else>
@@ -25,6 +28,8 @@
 <script>
 import HistoryChart from '@/components/HistoryChart'
 import HistoryTable from '@/components/HistoryTable'
+import datetime from '@/filters/format-datetime.filter'
+import localize from '@/filters/localize.filter'
 
 export default {
   name: 'History',
@@ -45,14 +50,6 @@ export default {
     this.categoriesTitles = categories.map(category => category.title)
 
     const records = []
-    const options = {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit'
-    }
     categories.forEach(category => {
       const categoryRecords = ('records' in category)
         ? Object.keys(category.records).map(key => {
@@ -68,9 +65,10 @@ export default {
         record.categoryID = category.id
         record.categoryTitle = category.title
         record.typeClass = record.type === 'income' ? 'green' : 'red'
-        record.typeText = record.type === 'income' ? 'Доход' : 'Расход'
-        const dateObj = new Date(record.date)
-        record.date = new Intl.DateTimeFormat('ru-RU', options).format(dateObj)
+        record.typeText = (record.type === 'income')
+          ? localize('Income')
+          : localize('Outcome')
+        record.date = datetime(new Date(record.date))
       })
       records.push(...categoryRecords)
     })
