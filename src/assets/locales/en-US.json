@@ -36,6 +36,7 @@
   "HistoryTableType": "Type",
   "HistoryTableOpen": "Open",
 
+  "RecordDetailTitle": "Record detail info",
   "RecordDetailBreadcrumb": "History",
   "RecordDetailDescription": "Description:",
   "RecordDetailSummary": "Summary:",
@@ -85,5 +86,9 @@
   "CategoryEditCategoryLimitHintMinimum": "Minimum",
   "CategoryEditButton": "Update",
   "CategoryEditSuccessMessagePart1": "Category",
-  "CategoryEditSuccessMessagePart2": "is updated"
+  "CategoryEditSuccessMessagePart2": "is updated",
+
+  "SignInTitle": "Sign in",
+
+  "SignUpTitle": "Sign up"
 }

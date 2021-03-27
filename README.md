@@ -21,6 +21,7 @@ VUE_APP_authDomain=yourApp.firebaseapp.com
 ...
 ```
 * get api key from https://free.currencyconverterapi.com/ and save it in .env.local as VUE_APP_currconv_apiKey
+* add app title in .env.local ```VUE_APP_TITLE = crm4finance```
 
 ### Compiles and hot-reloads for development
 ```

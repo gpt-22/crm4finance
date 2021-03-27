@@ -101,6 +101,11 @@ import localize from '@/filters/localize.filter'
 
 export default {
   name: 'Record',
+  metaInfo() {
+    return {
+      title: this.$title('RecordTitle')
+    }
+  },
   data() {
     return {
       loading: true,

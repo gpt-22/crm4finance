@@ -30,6 +30,11 @@ import datetime from '@/filters/format-datetime.filter'
 
 export default {
   name: 'Dashboard',
+  metaInfo() {
+    return {
+      title: this.$title('DashboardTitle')
+    }
+  },
   components: {
     DashboardBill,
     DashboardCurrencies

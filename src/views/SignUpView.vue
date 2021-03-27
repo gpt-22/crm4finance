@@ -122,6 +122,11 @@ import { authMixin } from '@/mixins/auth.mixin'
 
 export default {
   name: 'SignUp',
+  metaInfo() {
+    return {
+      title: this.$title('SignUpTitle')
+    }
+  },
   mixins: [authMixin],
   data() {
     return {

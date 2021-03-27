@@ -40,6 +40,11 @@ import datetime from '@/filters/format-datetime.filter'
 
 export default {
   name: 'Record-detail',
+  metaInfo() {
+    return {
+      title: this.$title('RecordDetailTitle')
+    }
+  },
   data() {
     return {
       loading: true,

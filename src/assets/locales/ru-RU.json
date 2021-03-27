@@ -36,6 +36,7 @@
   "HistoryTableType": "Тип",
   "HistoryTableOpen": "Открыть",
 
+  "RecordDetailTitle": "Информация о записи",
   "RecordDetailBreadcrumb": "История",
   "RecordDetailDescription": "Описание:",
   "RecordDetailSummary": "Сумма:",
@@ -85,5 +86,9 @@
   "CategoryEditCategoryLimitHintMinimum": "Минимум",
   "CategoryEditButton": "Обновить",
   "CategoryEditSuccessMessagePart1": "Категория",
-  "CategoryEditSuccessMessagePart2": "обновлена"
+  "CategoryEditSuccessMessagePart2": "обновлена",
+
+  "SignInTitle": "Вход в аккаунт",
+
+  "SignUpTitle": "Регистрация"
 }

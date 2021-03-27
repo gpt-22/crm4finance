@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import VueMeta from 'vue-meta'
 
 import AppPreloader from '@/components/AppPreloader'
 import AppPagination from '@/components/AppPagination'
@@ -12,6 +13,7 @@ import formatDatetimeFilter from './filters/format-datetime.filter'
 import tooltipDirective from './directives/tooltip.directive'
 
 import toastMessagePlugin from './utils/toastMessage.plugin'
+import appTitlePlugin from './utils/appTitle.plugin'
 
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
@@ -53,6 +55,8 @@ firebase.auth().onAuthStateChanged(() => {
   Vue.directive('tooltip', tooltipDirective)
 
   // plugins
+  Vue.use(VueMeta)
+  Vue.use(appTitlePlugin)
   Vue.use(toastMessagePlugin)
 
   app = new Vue({

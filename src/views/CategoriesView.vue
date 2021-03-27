@@ -33,6 +33,11 @@ import CategoryEdit from '@/components/CategoryEdit'
 
 export default {
   name: 'Categories',
+  metaInfo() {
+    return {
+      title: this.$title('CategoriesTitle')
+    }
+  },
   components: {
     CategoryCreate,
     CategoryEdit

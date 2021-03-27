@@ -75,6 +75,11 @@ import messages from '@/utils/messages'
 
 export default {
   name: 'SignIn',
+  metaInfo() {
+    return {
+      title: this.$title('SignInTitle')
+    }
+  },
   mixins: [authMixin],
   mounted() {
     const routMessage = this.$route.query.message

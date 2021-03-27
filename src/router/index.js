@@ -22,43 +22,43 @@ const routes = [
     path: '/dashboard',
     alias: ['/', '/home'],
     name: 'Dashboard',
-    meta: { layout: 'main', auth: true },
+    meta: { layout: 'main', requiresAuth: true },
     component: Dashboard
   },
   {
     path: '/categories',
     name: 'Categories',
-    meta: { layout: 'main', auth: true },
+    meta: { layout: 'main', requiresAuth: true },
     component: () => import('../views/CategoriesView')
   },
   {
     path: '/history',
     name: 'History',
-    meta: { layout: 'main', auth: true },
+    meta: { layout: 'main', requiresAuth: true },
     component: () => import('../views/HistoryView')
   },
   {
     path: '/planning',
     name: 'Planning',
-    meta: { layout: 'main', auth: true },
+    meta: { layout: 'main', requiresAuth: true },
     component: () => import('../views/PlanningView')
   },
   {
     path: '/profile',
     name: 'Profile',
-    meta: { layout: 'main', auth: true },
+    meta: { layout: 'main', requiresAuth: true },
     component: () => import('../views/ProfileView')
   },
   {
     path: '/record',
     name: 'Record',
-    meta: { layout: 'main', auth: true },
+    meta: { layout: 'main', requiresAuth: true },
     component: () => import('../views/RecordView')
   },
   {
     path: '/record-detail/:category_id/:id',
     name: 'Record-detail',
-    meta: { layout: 'main', auth: true },
+    meta: { layout: 'main', requiresAuth: true },
     component: () => import('../views/RecordDetailView')
   }
 ]
@@ -71,11 +71,13 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   const currentUser = firebase.auth().currentUser
-  const requireAuth = to.matched.some(rout => rout.meta.auth)
+  const requireAuth = to.matched.some(rout => rout.meta.requiresAuth)
 
   if (requireAuth && !currentUser) {
     next('/sign-in?message=sign-in')
-  } else next()
+  } else {
+    next()
+  }
 })
 
 export default router
