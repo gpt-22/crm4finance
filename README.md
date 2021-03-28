@@ -1,6 +1,9 @@
 # crm4finance
 
-## Project setup
+### Firebase link
+https://crm4finance.web.app
+
+### Project setup
 ```
 npm install
 ```
